@@ -23,14 +23,13 @@ public class LoginAdmin {
     @Test
     public void myTestLoginAdmin() throws InterruptedException {
         driver.get("http://localhost/litecart/admin/");
+        Thread.sleep(1000);
         driver.findElement(By.name("username")). sendKeys("admin");
         Thread.sleep(1000);
         driver.findElement(By.name("password")). sendKeys("admin");
         Thread.sleep(1000);
-        driver.findElement(By.name("remember_me")). click();
-        Thread.sleep(1000);
         driver.findElement(By.name("login")). click();
-        Thread.sleep(2000);
+        Thread.sleep(3000);
 
 
         wait.until(titleIs("My Store"));
