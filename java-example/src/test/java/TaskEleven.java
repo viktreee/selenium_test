@@ -3,6 +3,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.ie.InternetExplorerDriver;
@@ -48,7 +49,7 @@ public class TaskEleven {
         emailName = FirstName + Integer.toString(h) + Integer.toString(m) + Integer.toString(s);
 
         driver.findElement(By.className("select2-selection__arrow")).click();
-        driver.findElement(By.className("select2-search__field")).sendKeys("United States\n");
+        driver.findElement(By.className("select2-search__field")).sendKeys("United States" + Keys.ENTER);
         driver.findElement(By.name("firstname")).sendKeys(FirstName);
         driver.findElement(By.name("lastname")).sendKeys(LastName);
         driver.findElement(By.name("address1")).sendKeys("titova 8-22");
