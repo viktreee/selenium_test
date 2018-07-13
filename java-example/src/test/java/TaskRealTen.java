@@ -6,11 +6,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import javafx.scene.paint.Color;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.List;
 import java.util.concurrent.TimeUnit;
-
 
 public class TaskRealTen {
 
@@ -21,6 +19,7 @@ public class TaskRealTen {
     String nameOfItem1, nameOfItem2;
     float size1, size2;
 
+
     @Before
     public void start() {
         driver = new InternetExplorerDriver();
@@ -29,8 +28,24 @@ public class TaskRealTen {
 
     }
 
+    private boolean isGrey(Color color) {
+        double r = color.getRed();
+        double g = color.getGreen();
+        double b = color.getBlue();
+        return (r == g & g == b);
+    }
+
+    private boolean isRed(Color color) {
+        double r = color.getRed();
+        double g = color.getGreen();
+        double b = color.getBlue();
+        return (g == 0 & b == 0 & r != 0);
+    }
+
     @Test
     public void CorrectProductPage() {
+
+
         driver.get("http://localhost/litecart/en/");
         wait = new WebDriverWait(driver,10);
 
@@ -52,7 +67,8 @@ public class TaskRealTen {
         //Цвет шрифта основной цены
         regularPrice1[1] = product.findElement(By.cssSelector(".regular-price")).getCssValue("color");
         System.out.println("Цвет шрифта обычной цены = " + regularPrice1[1]);
-        Assert.assertTrue("Ошибка: цвет шрифта обычной цены не серый!",regularPrice1[1].compareTo("rgba(119, 119, 119, 1)") == 0);
+        Color testColor1 = Color.valueOf(driver.findElement(By.cssSelector(".regular-price")).getCssValue("color"));
+        Assert.assertTrue("Ошибка: цвет шрифта обычной цены не серый!",isGrey(testColor1));
 
         //Жирность шрифта основной цены
         regularPrice1[2] = product.findElement(By.cssSelector(".regular-price")).getCssValue("font-weight");
@@ -73,7 +89,9 @@ public class TaskRealTen {
         //Цвет акционной цены
         promotionalPrice1[1]= product.findElement(By.cssSelector(".campaign-price")).getCssValue("color");
         System.out.println("Цвет шрифта акционной цены = " + promotionalPrice1[1]);
-        Assert.assertTrue("Ошибка: цвет шрифта акционной цены не красный!",promotionalPrice1[1].compareTo("rgba(204, 0, 0, 1)") == 0);
+        Color testColor2 = Color.valueOf(driver.findElement(By.cssSelector(".regular-price")).getCssValue("color"));
+        Assert.assertTrue("Ошибка: цвет шрифта акционной цены не красный!",isRed(testColor2));
+
         //Жирность шрифта акционной цены
         promotionalPrice1[2]= product.findElement(By.cssSelector(".campaign-price")).getCssValue("font-weight");
         System.out.println("Жирность акционного шрифта = " + promotionalPrice1[2]);
@@ -109,7 +127,9 @@ public class TaskRealTen {
         //Цвет шрифта обычной цены
         regularPrice2[1]= product.findElement(By.cssSelector(".regular-price")).getCssValue("color");
         System.out.println("Цвет обычной цены = " + regularPrice2[1]);
-        Assert.assertTrue("Ошибка, цвет шрифта обычной цены не серый!",regularPrice2[1].compareTo("rgba(102, 102, 102, 1)") == 0);
+        Color testColor3 = Color.valueOf(driver.findElement(By.cssSelector(".regular-price")).getCssValue("color"));
+        Assert.assertTrue("Ошибка: цвет шрифта обычной цены не серый!",isGrey(testColor3));
+
         //Жирность шрифта обычной цены
         regularPrice2[2]= product.findElement(By.cssSelector(".regular-price")).getCssValue("font-weight");
         //Оформление шрифта обычной цены
@@ -127,7 +147,8 @@ public class TaskRealTen {
         //Цвет шрифта акционной цены
         promotionalPrice2[1]= product.findElement(By.cssSelector(".campaign-price")).getCssValue("color");
         System.out.println("Цвет шрифта акционной цены = " + promotionalPrice2[1]);
-        Assert.assertTrue("Ошибка, цвет шрифта акционной цены не красный!",promotionalPrice2[1].compareTo("rgba(204, 0, 0, 1)") == 0);
+        Color testColor4 = Color.valueOf(driver.findElement(By.cssSelector(".regular-price")).getCssValue("color"));
+        Assert.assertTrue("Ошибка: цвет шрифта акционной цены не красный!",isRed(testColor4));
 
         //Жирность шрифта акционной цены
         promotionalPrice2[2]= product.findElement(By.cssSelector(".campaign-price")).getCssValue("font-weight");
@@ -148,8 +169,6 @@ public class TaskRealTen {
         }
         System.out.println("------------------Тест успешно пройден------------------");
     }
-
-
 
     @After
     public void stop() {
